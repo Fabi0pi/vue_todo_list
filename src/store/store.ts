@@ -1,25 +1,34 @@
-import { reactive } from 'vue';
+import { reactive, watch } from 'vue';
+import type { InitialState } from './model';
 
-const tdList:Record<string, any> = []
-const lists:Record<string, any>[] = [
-    // tdList --> example --> {yellow: ["camera, bagno"]},
-]
-const tags = ['yellow','green','blue','grey']
+const initialState: InitialState = {
+    activeRoute:"",
+    todoList: []
+}
 
 export const store = reactive({
-    activeRoute: '',
+    ...initialState,
     setActiveRoute (route: string)  {
         store.activeRoute = route
       },
-    todolist: new Array,
     getItem (val: string ) {
-        if (store.todolist.includes(val)) return
-        store.todolist.push({
+        if (store.todoList.some(el => el?.value === val)) {
+            return
+        }
+        store.todoList.push({
             id: Math.floor(Math.random() * 10001),
             value: val
         })
     },
-    emptyList () {
-        store.todolist = []
+    deleteItem (id: number) {
+        store.todoList = store.todoList.filter((e) => e?.id !== id)
     },
+    emptyList () {
+        store.todoList = []
+    },
+})
+
+
+watch(store, (storeUpdated) => {
+    console.log("STORE", {...storeUpdated});
 })
