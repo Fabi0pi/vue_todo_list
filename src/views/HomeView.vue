@@ -2,20 +2,20 @@
 import ContainerList from '@/components/ContainerList.vue';
 import TodoInput from '@/components/TodoInput.vue'
 import { store } from  '../store/store'
-import TodoTag from '@/components/TodoTag.vue';
 
 </script>
 
 <template>
   <div class="home-container">
     <div class="left-container">
-      <TodoTag tagName="Franco"></TodoTag>
       <TodoInput ></TodoInput>
     </div>
     <div class="right-container">
       <ContainerList 
         title="TODO LIST" 
-        :list="store.todolist" >
+        :list="store.todoList" 
+        :onclickDeleteBtn="(id) => store.deleteItem(id)"
+        >
       </ContainerList>
     </div>
   </div>

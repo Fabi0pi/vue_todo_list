@@ -30,5 +30,5 @@ export const store = reactive({
 
 
 watch(store, (storeUpdated) => {
-    console.log("STORE", {...storeUpdated});
+    console.log("TRACKING STORE UPDATES", {...storeUpdated});
 })

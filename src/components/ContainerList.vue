@@ -1,32 +1,33 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import type { Nullable, TodoList } from '@/store/model';
+import { computed, ref } from 'vue';
 
-const checkedItems = ref(new Array)
+const checkedItems = ref([] as number[])
 
 const props = defineProps<{
   title: string
-  list: any[]
+  list: Nullable<TodoList>[]
+  onclickDeleteBtn: (id: number) => void
 }>()
 
-const { list } = props
+const handleClickChecked = (id?:number) => {
 
-const handleClickChecked = (val: any) => {
-  if (checkedItems.value.includes(val)) return
-  return checkedItems.value.push({...val})
+  if (!id) return
+
+  if (checkedItems.value.includes(id)) {
+    return checkedItems.value = checkedItems.value.filter(itemId => itemId !== id);
+  } 
+  checkedItems.value.push(id);
 }
 
-const itemChecked = (v:any)=> {
-  console.log("🚀 ~ itemChecked ~ v:", v)
-  return v
+const isThisChecked = computed(()=> {
+  return (id?:number) => id && checkedItems.value.includes(id)
+})
+
+const handleDeletItem = (id?: number) => {
+  id && props.onclickDeleteBtn(id)
 }
 
-watch(checkedItems.value,(newV) => {
-  console.log("CHECK",newV);
-})
-
-watch(list,(newV) => {
-  console.log("list:", newV)
-})
 
 </script>
 
@@ -34,17 +35,17 @@ watch(list,(newV) => {
   <div class="box">
     <!-- <text class="title">{{ title }}</text> -->
     <div class="container-list">
-      <div class="list" v-for="(el) in list" :key="el.id">
+      <div class="list" v-for="(el) in list" :key="el?.id">
         <input 
           class="checkbx" 
           type="checkbox" 
-          :id="el.id" 
-          :value="el.id" 
+          :id="`${el?.id}`" 
+          :value="el?.id" 
           :v-model="list" 
-          @checked="itemChecked(el.id)"
-          @click="handleClickChecked(el)" 
+          @click="handleClickChecked(el?.id)" 
           />
-        <label class="text" :for="'checkbox-' + el.id">{{ el.value }}</label>
+        <label class="text" :for="'checkbox-' + el?.id">{{ el?.value }}</label>
+        <button @click="handleDeletItem(el?.id)" :disabled="!isThisChecked(el?.id)">X</button>
       </div>
     </div>
   </div>

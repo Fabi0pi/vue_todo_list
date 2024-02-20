@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 
-defineProps<{
+const props = defineProps<{
   routes: Record<string, any>[]
-  testonclick: (routeName: string) => void
+  onclickRoute: (routeName: string) => void
 }>()
+
+const handleClickRoute = (routeName: string) => {
+  props.onclickRoute(routeName);
+}
+
 </script>
 
 <template>
   <div class="todo-header">
-    <nav v-for="({ name, path }, idx) in routes" :key="idx" @click="() => testonclick(name)" >
+    <nav v-for="({ name, path }, idx) in props.routes" :key="idx" @click="handleClickRoute(name)" >
       <RouterLink :to="path">{{ name }}</RouterLink>
     </nav>
   </div>
