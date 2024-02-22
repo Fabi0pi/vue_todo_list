@@ -16,6 +16,7 @@ watch(textInput, (newValue) => {
 });
 
 const getValue = () => {
+    if (!textInput.value) return 
     store.getItem(textInput.value)
     textInput.value = ''
 }
@@ -27,6 +28,8 @@ const getValue = () => {
         v-model="textInput"
         placeholder="Add something to do"
         class="custom-input"
+        ref="inputElement"
+        @keyup.enter="getValue"
         />
         <div class="btn-container">
             <TodoBtn :onClick="getValue" btnName="Submit" :disabled="disabledBtn" ></TodoBtn>
