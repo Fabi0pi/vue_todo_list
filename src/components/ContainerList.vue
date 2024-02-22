@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import type { Nullable, TodoList } from '@/store/model';
-import { computed, ref } from 'vue';
 import TodoCheckboxListVue from './TodoCheckboxList.vue';
-
-const checkedItems = ref([] as number[])
 
 const props = defineProps<{
   title: string
