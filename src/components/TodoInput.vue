@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { store } from  '../store/store'
 import TodoBtn from './TodoBtn.vue';
+import { useStore } from '@/store/store';
+
+const store = useStore()
 
 const textInput = ref<string>('');
 const disabledBtn = ref<boolean>(true)
@@ -67,4 +69,4 @@ input:focus-visible {
     flex-direction: row;
     justify-content: flex-end;
 }
-</style>
+</style>../store/stores

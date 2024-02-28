@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import TodoLayout from './components/Layout/TodoLayout.vue'
 import router from './router'
-import { store } from './store/store'
+import { useStore } from './store/store';
+
+
+const store = useStore()
 
 const routes = router.getRoutes()
 
@@ -13,3 +16,4 @@ const routes = router.getRoutes()
 
 <style scoped>
 </style>
+./store/stores

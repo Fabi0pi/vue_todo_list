@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import ContainerList from '@/components/ContainerList.vue';
 import TodoInput from '@/components/TodoInput.vue'
-import { store } from  '../store/store'
+import { useStore } from '@/store/store';
+
+const store = useStore()
 
 </script>
 
@@ -41,4 +43,4 @@ import { store } from  '../store/store'
   flex:1;
   padding: 10px;
 }
-</style>
+</style>../store/stores
